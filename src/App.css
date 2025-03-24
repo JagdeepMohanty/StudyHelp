@@ -1,0 +1,123 @@
+.container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
+  background-color: #000;
+  color: #fff;
+}
+
+.clock {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.clock h1 {
+  font-size: 3rem;
+  font-style: italic;
+  margin: 0;
+  color: #fff;
+}
+
+.stopwatch {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.stopwatch h2 {
+  font-size: 6rem;
+  margin: 0;
+  color: #fff;
+}
+
+.controls {
+  margin-top: 20px;
+}
+
+.controls button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  background-color: #333;
+  color: #fff;
+  border: none;
+}
+
+.controls button:hover {
+  background-color: #555;
+}
+
+.todo-list {
+  width: 300px;
+  padding: 20px;
+  border: 1px solid #fff;
+  height: fit-content;
+  margin: 20px;
+  background-color: #111;
+}
+
+.todo-list h3 {
+  margin-top: 0;
+  color: #fff;
+}
+
+.todo-list form {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.todo-list input {
+  flex: 1;
+  padding: 5px;
+  margin-right: 10px;
+  background-color: #222;
+  color: #fff;
+  border: 1px solid #444;
+}
+
+.todo-list button {
+  padding: 5px 10px;
+  cursor: pointer;
+  background-color: #333;
+  color: #fff;
+  border: none;
+}
+
+.todo-list button:hover {
+  background-color: #555;
+}
+
+.todo-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.todo-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px 0;
+  padding: 5px;
+  background-color: #222;
+}
+
+.todo-list li span {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.todo-list li div {
+  display: flex;
+  gap: 5px;
+}
+
+.todo-list li button {
+  padding: 2px 8px;
+  font-size: 0.8rem;
+}
