@@ -28,15 +28,13 @@ function App() {
   useEffect(() => {
     let interval;
     if (isRunning) {
-      const initialStartTime = startTime || Date.now() - stopwatchTime; // Ensure startTime is set properly
-      setStartTime(initialStartTime);
-      
+      if (!startTime) setStartTime(Date.now() - stopwatchTime); // Set initial start time
       interval = setInterval(() => {
-        setStopwatchTime(Date.now() - initialStartTime);
-      }, 100);
+        setStopwatchTime(Date.now() - startTime);
+      }, 100); // Update every 100ms for smoother display
     }
     return () => clearInterval(interval);
-  }, [isRunning]);
+  }, [isRunning, startTime]);
 
   // Format time for clock
   const formatTime = () => {
