@@ -8,6 +8,7 @@ function App() {
   // Stopwatch states
   const [stopwatchTime, setStopwatchTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
+  const [startTime, setStartTime] = useState(null);
 
   // Todo list states
   const [todos, setTodos] = useState([]);
@@ -27,12 +28,13 @@ function App() {
   useEffect(() => {
     let interval;
     if (isRunning) {
+      if (!startTime) setStartTime(Date.now() - stopwatchTime); // Set initial start time
       interval = setInterval(() => {
-        setStopwatchTime((prev) => prev + 1);
-      }, 1000);
+        setStopwatchTime(Date.now() - startTime);
+      }, 100); // Update every 100ms for smoother display
     }
     return () => clearInterval(interval);
-  }, [isRunning]);
+  }, [isRunning, startTime]);
 
   // Format time for clock
   const formatTime = () => {
@@ -41,12 +43,23 @@ function App() {
 
   // Format stopwatch time
   const formatStopwatch = () => {
-    const hours = Math.floor(stopwatchTime / 3600);
-    const minutes = Math.floor((stopwatchTime % 3600) / 60);
-    const seconds = stopwatchTime % 60;
+    const totalMilliseconds = stopwatchTime;
+    const totalSeconds = Math.floor(totalMilliseconds / 1000);
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+    
+    // Always show hours, even if 0, to clearly indicate capability for >1 hour
     return `${hours.toString().padStart(2, '0')}:${minutes
       .toString()
       .padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  };
+
+  // Reset stopwatch
+  const resetStopwatch = () => {
+    setStopwatchTime(0);
+    setIsRunning(false);
+    setStartTime(null);
   };
 
   // Todo list handlers
@@ -88,9 +101,13 @@ function App() {
       <div className="stopwatch">
         <h2>{formatStopwatch()}</h2>
         <div className="controls">
-          <button onClick={() => setIsRunning(true)}>Start</button>
-          <button onClick={() => setIsRunning(false)}>Stop</button>
-          <button onClick={() => setStopwatchTime(0)}>Reset</button>
+          <button onClick={() => setIsRunning(true)} disabled={isRunning}>
+            Start
+          </button>
+          <button onClick={() => setIsRunning(false)} disabled={!isRunning}>
+            Stop
+          </button>
+          <button onClick={resetStopwatch}>Reset</button>
         </div>
       </div>
 
